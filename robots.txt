@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /private/
+
+Sitemap: https://illyasmilyanksyi.github.io/baraholka-project/sitemap.xml
+
