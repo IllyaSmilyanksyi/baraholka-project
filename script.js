@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     alert("Вітаємо на сайті");
-
-    // Додавання поля пошуку
+	
+// Додавання поля пошуку
     const searchInput = document.createElement("input");
     searchInput.setAttribute("type", "text");
     searchInput.setAttribute("placeholder", "Пошук товарів...");
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
             item.style.display = title.includes(filter) ? "block" : "none";
         });
     });
-
+	
     // Додавання товарів
     const products = [
         { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0167.jpeg" },
@@ -33,16 +33,42 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     const container = document.querySelector(".items-container");
-    products.forEach(product => {
+    const modal = document.getElementById("modal");
+    const carousel = document.getElementById("carousel");
+    let currentSlide = 0;
+
+    // Функція для створення товару
+    products.forEach((product, index) => {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
-            <img src="${product.image}" alt="${product.title}">
+            <img src="${product.images[0]}" alt="${product.title}">
             <h3>${product.title}</h3>
             <p>${product.description}</p>
             <p class="price">${product.price}</p>
-            <a href="#contact" class="button">Зв'язатися</a>
+            <button onclick="openModal(${index})">Переглянути</button>
         `;
         container.appendChild(item);
     });
+
+    // Відкрити модальне вікно
+    window.openModal = function (productIndex) {
+        const product = products[productIndex];
+        carousel.innerHTML = product.images.map((img, idx) => `<img src="${img}" class="${idx === 0 ? "active" : ""}">`).join("");
+        currentSlide = 0;
+        modal.style.display = "block";
+    };
+
+    // Закрити модальне вікно
+    window.closeModal = function () {
+        modal.style.display = "none";
+    };
+
+    // Перемикання слайдів
+    window.changeSlide = function (step) {
+        const slides = carousel.querySelectorAll("img");
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (currentSlide + step + slides.length) % slides.length;
+        slides[currentSlide].classList.add("active");
+    };
 });
