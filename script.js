@@ -18,10 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Додавання товарів
     const products = [
-        { title: "Сукня",
-            description: "Опис товару та більше фото в особистих повідомленнях.",
-            price: "50 грн",
-            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"] },
+        { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0167.jpeg" },
         { title: "Спідниця+боді", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "170 грн", image: "image/IMG_0171.jpeg"},
 		{ title: "Кофточка чорна", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0176.jpeg" },
 		{ title: "Кофточка сіра ", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0178.jpeg" },
@@ -50,23 +47,24 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Функції для модального вікна
-    const modal = document.getElementById("modal");
-    const modalImage = document.getElementById("modalImage");
-    let currentIndex = 0;
+    const modal = document.createElement("div");
+    modal.id = "imageModal";
+    modal.className = "image-modal";
+    modal.innerHTML = `
+        <span class="close-modal" onclick="closeImageModal()">&times;</span>
+        <img class="modal-content" id="modalImage" src="">
+    `;
+    document.body.appendChild(modal);
 
-    window.openModal = function (index) {
+    window.openImageModal = function (imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
         modal.style.display = "block";
-        currentIndex = index;
-        modalImage.src = products[index].images[0];
+        modalImage.src = imageSrc;
     };
 
-    window.closeModal = function () {
+    window.closeImageModal = function () {
+        const modal = document.getElementById("imageModal");
         modal.style.display = "none";
-    };
-
-    modal.onclick = function (event) {
-        if (event.target === modal) {
-            closeModal();
-        }
     };
 });
