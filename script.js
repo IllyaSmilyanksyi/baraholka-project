@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     const container = document.querySelector(".items-container");
-    const modal = document.querySelector(".modal");
+    const modal = document.querySelector("#imageModal");
     const modalImage = document.querySelector("#modalImage");
     let currentImageIndex = 0;
     let currentProductImages = [];
@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         modalImage.src = currentProductImages[currentImageIndex];
     };
 
+    // Генерація товарів
     products.forEach((product) => {
         const item = document.createElement("div");
         item.classList.add("item");
