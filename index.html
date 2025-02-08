@@ -31,19 +31,18 @@
     <section id="items" class="section">
         <h2>Наші товари</h2>
         <div class="items-container">
-            <!-- Динамічне завантаження товарів через JS -->
+            <!-- Товари будуть динамічно завантажені тут -->
         </div>
     </section>
 
-    <!-- Модальне вікно для фото -->
-    <div id="imageModal" class="modal">
-        <span class="close" onclick="closeImageModal()">&times;</span>
-        <img id="modalImage" class="modal-content" src="" alt="Product Image">
+    <!-- Модальне вікно для перегляду зображень -->
     <div id="imageModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
         <img id="modalImage" class="modal-content">
-    </div>
-
+        <div class="controls">
+            <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+            <span class="next" onclick="changeSlide(1)">&#10095;</span>
+        </div>
     </div>
 
     <footer id="contact" class="section">
@@ -51,7 +50,7 @@
         <p>Зв'яжіться зі мною через:</p>
         <p>Email: <a href="mailto:720.side@ukr.net">720.side@ukr.net</a></p>
         <p>Телефон: <a href="tel:+380631748414">+380631748414</a></p>
-        <p>Viber: <a href="viber://chat?number=%2B380123456789">Написати у Viber</a></p>
+        <p>Viber: <a href="viber://chat?number=%2B380631748414">Написати у Viber</a></p>
         <p>Telegram: <a href="https://t.me/I1488_s">Написати у Telegram</a></p>
         <p>© 2025 Всі права захищені</p>
     </footer>

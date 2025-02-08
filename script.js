@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    alert("Вітаємо на сайті");
+    alert("Вітаємо на сайті!");
 
     // Додавання поля пошуку
     const searchInput = document.createElement("input");
@@ -22,54 +22,23 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Сукня",
             description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно",
             price: "50 грн",
-            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"],
+            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"]
         },
         {
             title: "Спідниця+боді",
             description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю",
             price: "170 грн",
-            images: ["image/IMG_0171.jpeg", "image/IMG_0172.jpeg"],
-        },
+            images: ["image/IMG_0171.jpeg"]
+        }
+        // Інші товари...
     ];
 
     const container = document.querySelector(".items-container");
-    const modal = document.querySelector("#imageModal");
-    const modalImage = document.querySelector("#modalImage");
-    let currentImageIndex = 0;
-    let currentProductImages = [];
-
-    // Відкрити модальне вікно
-    window.openModal = function (images, index) {
-        currentProductImages = images;
-        currentImageIndex = index;
-        modal.style.display = "flex";
-        modalImage.src = currentProductImages[currentImageIndex];
-    };
-
-    // Закрити модальне вікно
-    window.closeModal = function () {
-        modal.style.display = "none";
-    };
-
-    // Перемикання фото
-    window.changeSlide = function (direction) {
-        currentImageIndex += direction;
-        if (currentImageIndex < 0) {
-            currentImageIndex = currentProductImages.length - 1;
-        } else if (currentImageIndex >= currentProductImages.length) {
-            currentImageIndex = 0;
-        }
-        modalImage.src = currentProductImages[currentImageIndex];
-    };
-
-    // Генерація товарів
-    products.forEach((product) => {
+    products.forEach((product, index) => {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
-            <img src="${product.images[0]}" alt="${product.title}" onclick="openModal(${JSON.stringify(
-            product.images
-        )}, 0)">
+            <img src="${product.images[0]}" alt="${product.title}" onclick="openImageModal(${index}, 0)">
             <h3>${product.title}</h3>
             <p>${product.description}</p>
             <p class="price">${product.price}</p>
@@ -78,12 +47,31 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(item);
     });
 
-    // Додати елементи управління
-    const controls = document.createElement("div");
-    controls.classList.add("controls");
-    controls.innerHTML = `
-        <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
-        <span class="next" onclick="changeSlide(1)">&#10095;</span>
-    `;
-    modal.appendChild(controls);
+    // Динамічний контент модального вікна
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    let currentProductIndex = 0;
+    let currentImageIndex = 0;
+
+    window.openImageModal = function (productIndex, imageIndex) {
+        currentProductIndex = productIndex;
+        currentImageIndex = imageIndex;
+        modalImage.src = products[productIndex].images[imageIndex];
+        imageModal.style.display = "block";
+    };
+
+    window.closeImageModal = function () {
+        imageModal.style.display = "none";
+    };
+
+    window.changeModalImage = function (direction) {
+        currentImageIndex += direction;
+        const productImages = products[currentProductIndex].images;
+        if (currentImageIndex < 0) {
+            currentImageIndex = productImages.length - 1;
+        } else if (currentImageIndex >= productImages.length) {
+            currentImageIndex = 0;
+        }
+        modalImage.src = productImages[currentImageIndex];
+    };
 });
