@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Додавання товарів
     const products = [
-        const products = [
         { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0167.jpeg" },
         { title: "Спідниця+боді", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "170 грн", image: "image/IMG_0171.jpeg"},
 		{ title: "Кофточка чорна", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0176.jpeg" },
@@ -31,8 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		{ title: "Куртка TNF", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov1.jpg" },
 		{ title: "Джинси", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov3.jpg" },
 		{ title: "Шорти джинсові", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov2.jpg" },
-    ];
-
     ];
 
     const container = document.querySelector(".items-container");
