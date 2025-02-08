@@ -1,3 +1,5 @@
+/* Ваш існуючий CSS */
+
 /* Основні стилі */
 body {
     font-family: 'Roboto', sans-serif;
@@ -128,19 +130,7 @@ h2 {
     transform: scale(1.05);
 }
 
-/* Стилі для посилань у футері */
-footer a {
-    color: #6a11cb; /* Фіолетовий колір */
-    text-decoration: none; /* Забираємо підкреслення */
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: #ff5722; /* Помаранчевий колір при наведенні */
-    text-decoration: underline; /* Додаємо підкреслення при наведенні */
-}
-
-/* Контакти */
+/* Футер */
 footer {
     background: #2c3e50;
     color: white;
@@ -149,65 +139,81 @@ footer {
     border-top: 5px solid #ff5722;
 }
 
-footer p {
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: #ddd;
-}
-
-/* Адаптивність */
-@media (max-width: 480px) {
-    .items-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .item {
-        width: 100%;
-        margin-bottom: 20px;
-    }
-
-    header h1 {
-        font-size: 1.5rem;
-    }
-}
-
-/* Стилі для модального вікна */
-.image-modal {
+/* --- Стилі для модального вікна --- */
+.modal {
     display: none;
     position: fixed;
-    z-index: 10;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
     background-color: rgba(0, 0, 0, 0.8);
+    overflow: auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
-    margin: auto;
-    display: block;
     max-width: 80%;
     max-height: 80%;
+    margin: auto;
+    display: block;
+    object-fit: contain; /* Зберігає пропорції зображення */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
 }
 
-.close-modal {
+.modal img {
+    width: 100%;
+    height: auto;
+}
+
+.close {
     position: absolute;
     top: 20px;
     right: 35px;
-    color: #fff;
+    color: white;
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
+    user-select: none;
 }
 
-.close-modal:hover,
-.close-modal:focus {
+.close:hover,
+.close:focus {
     color: #ff5722;
     text-decoration: none;
-    cursor: pointer;
 }
 
+.controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: relative;
+    pointer-events: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    margin: 0 10px;
+    transition: background-color 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(255, 87, 34, 0.8);
+}

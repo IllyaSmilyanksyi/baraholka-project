@@ -18,26 +18,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Додавання товарів
     const products = [
-        { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0167.jpeg"},
-        { title: "Спідниця+боді", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "170 грн", image: "image/IMG_0171.jpeg"},
-		{ title: "Кофточка чорна", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0176.jpeg" },
-		{ title: "Кофточка сіра ", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0178.jpeg" },
-		{ title: "Кофточка темно-сіра", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0180.jpeg"},
-		{ title: "Шляпа", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір ?, стан люкс, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0182.jpeg" },
-		{ title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "100 грн", image: "image/IMG_0183.jpeg" },
-		{ title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "80 грн", image: "image/IMG_0186.jpeg" },
-		{ title: "Роутер", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "300 грн", image: "image/IMG_0187.jpeg" },
-		{ title: "Куртка TNF", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov1.jpg" },
-		{ title: "Джинси", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov3.jpg" },
-		{ title: "Шорти джинсові", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov2.jpg" },
+        {
+            title: "Сукня",
+            description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно",
+            price: "50 грн",
+            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"],
+        },
+        {
+            title: "Спідниця+боді",
+            description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю",
+            price: "170 грн",
+            images: ["image/IMG_0171.jpeg", "image/IMG_0172.jpeg"],
+        },
     ];
 
     const container = document.querySelector(".items-container");
-    products.forEach(product => {
+    const modal = document.querySelector(".modal");
+    const modalImage = document.querySelector("#modalImage");
+    let currentImageIndex = 0;
+    let currentProductImages = [];
+
+    // Відкрити модальне вікно
+    function openModal(images, index) {
+        currentProductImages = images;
+        currentImageIndex = index;
+        modal.style.display = "flex";
+        modalImage.src = currentProductImages[currentImageIndex];
+    }
+
+    // Закрити модальне вікно
+    window.closeModal = function () {
+        modal.style.display = "none";
+    };
+
+    // Перемикання фото
+    window.changeSlide = function (direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) {
+            currentImageIndex = currentProductImages.length - 1;
+        } else if (currentImageIndex >= currentProductImages.length) {
+            currentImageIndex = 0;
+        }
+        modalImage.src = currentProductImages[currentImageIndex];
+    };
+
+    products.forEach((product) => {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
-            <img src="${product.image}" alt="${product.title}" onclick="openImageModal('${product.image}')">
+            <img src="${product.images[0]}" alt="${product.title}" onclick="openModal(${JSON.stringify(
+            product.images
+        )}, 0)">
             <h3>${product.title}</h3>
             <p>${product.description}</p>
             <p class="price">${product.price}</p>
@@ -46,25 +77,12 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(item);
     });
 
-    // Функції для модального вікна
-    const modal = document.createElement("div");
-    modal.id = "imageModal";
-    modal.className = "image-modal";
-    modal.innerHTML = `
-        <span class="close-modal" onclick="closeImageModal()">&times;</span>
-        <img class="modal-content" id="modalImage" src="">
+    // Додати елементи управління
+    const controls = document.createElement("div");
+    controls.classList.add("controls");
+    controls.innerHTML = `
+        <span class="prev" onclick="changeSlide(-1)">&#10094;</span>
+        <span class="next" onclick="changeSlide(1)">&#10095;</span>
     `;
-    document.body.appendChild(modal);
-
-    window.openImageModal = function (imageSrc) {
-        const modal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
-        modal.style.display = "block";
-        modalImage.src = imageSrc;
-    };
-
-    window.closeImageModal = function () {
-        const modal = document.getElementById("imageModal");
-        modal.style.display = "none";
-    };
+    modal.appendChild(controls);
 });
