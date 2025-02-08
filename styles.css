@@ -265,4 +265,13 @@ footer p {
 .next {
     right: 10px;
 }
+.modal-content img {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Зберігає пропорції зображення */
+    max-height: 80vh; /* Обмеження висоти зображення */
+    max-width: 80vw; /* Обмеження ширини зображення */
+    border-radius: 10px;
+}
+
 
