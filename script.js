@@ -46,25 +46,24 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(item);
     });
 
-    // Функції для модального вікна
-    const modal = document.createElement("div");
-    modal.id = "imageModal";
-    modal.className = "image-modal";
-    modal.innerHTML = `
-        <span class="close-modal" onclick="closeImageModal()">&times;</span>
-        <img class="modal-content" id="modalImage" src="">
-    `;
-    document.body.appendChild(modal);
+    // Модальне вікно
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
 
-    window.openImageModal = function (imageSrc) {
-        const modal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
+    window.openImageModal = function (productIndex, imageIndex) {
+        const product = products[productIndex];
+        modalImage.src = product.images[imageIndex];
         modal.style.display = "block";
-        modalImage.src = imageSrc;
     };
 
     window.closeImageModal = function () {
-        const modal = document.getElementById("imageModal");
         modal.style.display = "none";
     };
+
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            closeImageModal();
+        }
+    });
 });
+
