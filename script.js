@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    alert("Вітаємо на сайті!");
+    alert("Вітаємо на сайті");
 
     // Додавання поля пошуку
     const searchInput = document.createElement("input");
@@ -18,27 +18,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Додавання товарів
     const products = [
-        {
-            title: "Сукня",
-            description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно",
-            price: "50 грн",
-            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"]
-        },
-        {
-            title: "Спідниця+боді",
-            description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю",
-            price: "170 грн",
-            images: ["image/IMG_0171.jpeg"]
-        }
-        // Інші товари...
+        { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0167.jpeg" },
+        { title: "Спідниця+боді", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "170 грн", image: "image/IMG_0171.jpeg"},
+		{ title: "Кофточка чорна", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0176.jpeg" },
+		{ title: "Кофточка сіра ", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0178.jpeg" },
+		{ title: "Кофточка темно-сіра", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0180.jpeg"},
+		{ title: "Шляпа", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір ?, стан люкс, можу віддати безкоштовно", price: "50 грн", image: "image/IMG_0182.jpeg" },
+		{ title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "100 грн", image: "image/IMG_0183.jpeg" },
+		{ title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "80 грн", image: "image/IMG_0186.jpeg" },
+		{ title: "Роутер", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "300 грн", image: "image/IMG_0187.jpeg" },
+		{ title: "Куртка TNF", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov1.jpg" },
+		{ title: "Джинси", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov3.jpg" },
+		{ title: "Шорти джинсові", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, стан люкс, продаю", price: "Договірна", image: "image/titov2.jpg" },
     ];
 
     const container = document.querySelector(".items-container");
-    products.forEach((product, index) => {
+    products.forEach(product => {
         const item = document.createElement("div");
         item.classList.add("item");
         item.innerHTML = `
-            <img src="${product.images[0]}" alt="${product.title}" onclick="openImageModal(${index}, 0)">
+            <img src="${product.image}" alt="${product.title}">
             <h3>${product.title}</h3>
             <p>${product.description}</p>
             <p class="price">${product.price}</p>
@@ -46,32 +45,4 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         container.appendChild(item);
     });
-
-    // Динамічний контент модального вікна
-    const imageModal = document.getElementById("imageModal");
-    const modalImage = document.getElementById("modalImage");
-    let currentProductIndex = 0;
-    let currentImageIndex = 0;
-
-    window.openImageModal = function (productIndex, imageIndex) {
-        currentProductIndex = productIndex;
-        currentImageIndex = imageIndex;
-        modalImage.src = products[productIndex].images[imageIndex];
-        imageModal.style.display = "block";
-    };
-
-    window.closeImageModal = function () {
-        imageModal.style.display = "none";
-    };
-
-    window.changeModalImage = function (direction) {
-        currentImageIndex += direction;
-        const productImages = products[currentProductIndex].images;
-        if (currentImageIndex < 0) {
-            currentImageIndex = productImages.length - 1;
-        } else if (currentImageIndex >= productImages.length) {
-            currentImageIndex = 0;
-        }
-        modalImage.src = productImages[currentImageIndex];
-    };
 });
