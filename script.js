@@ -39,12 +39,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentProductImages = [];
 
     // Відкрити модальне вікно
-    function openModal(images, index) {
+    window.openModal = function (images, index) {
         currentProductImages = images;
         currentImageIndex = index;
         modal.style.display = "flex";
         modalImage.src = currentProductImages[currentImageIndex];
-    }
+    };
 
     // Закрити модальне вікно
     window.closeModal = function () {
