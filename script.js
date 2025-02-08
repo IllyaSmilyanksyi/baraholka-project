@@ -18,7 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Додавання товарів
     const products = [
-        { title: "Сукня", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, є недоліки, можу віддати безкоштовно", price: "50 грн", images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"] },
+        { title: "Сукня",
+            description: "Опис товару та більше фото в особистих повідомленнях.",
+            price: "50 грн",
+            images: ["image/IMG_0167.jpeg", "image/IMG_0168.jpeg"] },
         { title: "Спідниця+боді", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "170 грн", image: "image/IMG_0171.jpeg"},
 		{ title: "Кофточка чорна", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0176.jpeg" },
 		{ title: "Кофточка сіра ", description: "Опис товару та більше фото в особистих повідомленнях у вкладці зв'язок, розмір S, стан люкс, продаю", price: "70 грн", image: "image/IMG_0178.jpeg" },
@@ -46,24 +49,24 @@ document.addEventListener("DOMContentLoaded", function () {
         container.appendChild(item);
     });
 
-    // Модальне вікно
-    const modal = document.getElementById("imageModal");
+    // Функції для модального вікна
+    const modal = document.getElementById("modal");
     const modalImage = document.getElementById("modalImage");
+    let currentIndex = 0;
 
-    window.openImageModal = function (productIndex, imageIndex) {
-        const product = products[productIndex];
-        modalImage.src = product.images[imageIndex];
+    window.openModal = function (index) {
         modal.style.display = "block";
+        currentIndex = index;
+        modalImage.src = products[index].images[0];
     };
 
-    window.closeImageModal = function () {
+    window.closeModal = function () {
         modal.style.display = "none";
     };
 
-    modal.addEventListener("click", function (e) {
-        if (e.target === modal) {
-            closeImageModal();
+    modal.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
         }
-    });
+    };
 });
-
